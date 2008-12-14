@@ -1,4 +1,4 @@
-module SiteUptimeAPI
+module Sappy
   module Responses
     class Error
       attr_reader :code, :message

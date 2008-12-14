@@ -1,4 +1,4 @@
-module SiteUptimeAPI
+module Sappy
   module Responses
     class Auth
       attr_reader :key

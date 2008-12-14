@@ -16,8 +16,8 @@ describe "monitor_list" do
   end
 
   it "should return a list of monitors" do
-    monitors = SiteUptimeAPI::Actions.monitor_list
+    monitors = Sappy::Actions.monitor_list
     monitors.should.be.kind_of Array
-    monitors.first.should.be.kind_of SiteUptimeAPI::Monitor
+    monitors.first.should.be.kind_of Sappy::Monitor
   end
 end

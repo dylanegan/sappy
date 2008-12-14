@@ -1,4 +1,4 @@
-site_uptime_api
+sappy
 ===============
 
 A ruby library providing a wrapper around the SiteUptime API.
@@ -7,8 +7,8 @@ USAGE
 =====
 
 require 'rubygems'
-require 'site_uptime_api'
+require 'sappy'
 
-SiteUptimeAPI::setup('email@email.com', 'password')
+Sappy::setup('email@email.com', 'password')
 
-monitors = SiteUptimeAPI::Actions.monitor_list
+monitors = Sappy::Actions.monitor_list

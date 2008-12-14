@@ -1,6 +1,6 @@
 require 'curb'
 
-module SiteUptimeAPI
+module Sappy
   class Request
     attr_reader :method, :parameters, :result, :response
 
@@ -18,12 +18,12 @@ module SiteUptimeAPI
       parameters = "AuthKey=#{authkey}&#{parameters}" unless method == 'auth'
       uri = "https://siteuptime.com/api/rest/?method=siteuptime.#{method}&#{parameters}"
       @result = Curl::Easy.perform(uri)
-      @response = SiteUptimeAPI::Response.new(self)
+      @response = Sappy::Response.new(self)
       @response.handle
     end
 
     def authkey
-      SiteUptimeAPI::Session.key
+      Sappy::Session.key
     end
   end
 end

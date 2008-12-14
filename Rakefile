@@ -1,12 +1,12 @@
 require 'rake/gempackagetask'
 
-require File.dirname(__FILE__) + '/lib/site_uptime_api/version'
+require File.dirname(__FILE__) + '/lib/sappy/version'
 
-GEM_NAME = "site_uptime_api"
-GEM_VERSION = SiteUptimeAPI::VERSION
+GEM_NAME = "sappy"
+GEM_VERSION = Sappy::VERSION
 AUTHORS = %w( abcde )
 EMAIL = "degan@engineyard.com"
-HOMEPAGE = "https://github.com/abcde/site_uptime_api"
+HOMEPAGE = "https://github.com/abcde/sappy"
 SUMMARY = "A wrapper for the SiteUptime API"
 
 spec = Gem::Specification.new do |s|

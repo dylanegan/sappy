@@ -1,4 +1,4 @@
-module SiteUptimeAPI
+module Sappy
   class Monitor
     attr_reader :name, :period, :service, :port, :id, :current_status, :host, :active
     def initialize(params = {})

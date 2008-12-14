@@ -1,7 +1,7 @@
 require 'xmlsimple'
-require 'site_uptime_api/responses'
+require 'sappy/responses'
 
-module SiteUptimeAPI
+module Sappy
   class Response
     attr_reader :result, :status
 
@@ -20,9 +20,9 @@ module SiteUptimeAPI
       xml = XmlSimple.xml_in(@request.result.body_str)
       @status = xml["stat"]
       if self.fail?
-        @result = SiteUptimeAPI::Responses::Error.new(xml)
+        @result = Sappy::Responses::Error.new(xml)
       else
-        @result = "SiteUptimeAPI::Responses::#{@request.method.classify}".constantize.new(xml)
+        @result = "Sappy::Responses::#{@request.method.classify}".constantize.new(xml)
       end
     end
 

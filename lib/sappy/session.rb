@@ -1,4 +1,4 @@
-module SiteUptimeAPI
+module Sappy
   class Session
     cattr_reader :key, :username, :password
     def self.setup(username, password)
@@ -9,7 +9,7 @@ module SiteUptimeAPI
 
     def self.authenticate(forced = false)
       unless forced or self.authenticated?
-        request = SiteUptimeAPI::Request.new('auth', "Email=#{@@username}&Password=#{@@password}")
+        request = Sappy::Request.new('auth', "Email=#{@@username}&Password=#{@@password}")
         response = request.perform
         @@key = response.result.key
       end
