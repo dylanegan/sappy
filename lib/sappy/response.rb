@@ -19,10 +19,10 @@ module Sappy
     def parse!
       xml = XmlSimple.xml_in(@request.result.body_str)
       @status = xml["stat"]
-      if self.fail?
-        @result = Sappy::Responses::Error.new(xml)
+      @result = if self.fail?
+        Sappy::Responses::Error.new(xml)
       else
-        @result = "Sappy::Responses::#{@request.method.classify}".constantize.new(xml)
+        "Sappy::Responses::#{@request.method.classify}".constantize.new(xml)
       end
     end
 
