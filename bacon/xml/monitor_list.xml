@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rsp stat="ok">
+  <monitors total="3">
+    <monitor id="40" active="no" name="test" host="www.qqq88.com" service="https" port="0" period="5" current_status="Ok" />
+    <monitor id="41" active="yes" name="test pop3" host="www.qqq22.com" service="pop3" port="0" period="30" current_status="Ok" />
+    <monitor id="46" active="yes" name="test dns" host="ns1.provider.com" service="dns" port="22" period="2" current_status="Failed" />
+  </monitors>
+</rsp>
