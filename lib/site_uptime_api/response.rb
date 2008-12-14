@@ -32,9 +32,11 @@ module SiteUptimeAPI
 
     def handle_fail_whale
       case @result.code
-        when "AUTH_EXPIRED" || "AUTH_ERR"
+        when "AUTH_EXPIRED"
           Session.authenticate(true)
           @request.perform
+        when "AUTH_ERR"
+          raise "Authentication Error: #{@result.message}"
       end
     end
   end
