@@ -1,0 +1,14 @@
+site_uptime_api
+===============
+
+A ruby library providing a wrapper around the SiteUptime API.
+
+USAGE
+=====
+
+require 'rubygems'
+require 'site_uptime_api'
+
+SiteUptimeAPI::setup('email@email.com', 'password')
+
+monitors = SiteUptimeAPI::Actions.monitor_list
