@@ -9,6 +9,6 @@ USAGE
 require 'rubygems'
 require 'sappy'
 
-Sappy::setup('email@email.com', 'password')
+Sappy::Session.setup('email@email.com', 'password')
 
 monitors = Sappy::Actions.monitor_list
