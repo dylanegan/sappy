@@ -7,6 +7,7 @@ module Sappy
     def initialize(method, parameters = "")
       @method = method
       @parameters = parameters
+      perform
     end
 
     def perform

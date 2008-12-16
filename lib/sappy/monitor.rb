@@ -8,11 +8,11 @@ module Sappy
     end
 
     def disable
-      Sappy::Request.new('disablemonitor', "MonitorID=#{self.id}").perform
+      Sappy::Request.new('disablemonitor', "MonitorID=#{self.id}")
     end
 
     def enable
-      Sappy::Request.new('enablemonitor', "MonitorID=#{self.id}").perform
+      Sappy::Request.new('enablemonitor', "MonitorID=#{self.id}")
     end
 
     # add_monitor

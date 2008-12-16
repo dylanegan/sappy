@@ -18,19 +18,19 @@ module Sappy
     end
 
     def refresh!
-      response = Sappy::Request.new('accountinfo').perform
+      response = Sappy::Request.new('accountinfo')
       @available_monitors = response.result.available_monitors
       @setup_monitors = response.result.setup_monitors
       @sms_alerts = response.result.sms_alerts
     end
 
     def monitors
-      Sappy::Request.new('monitors').perform.result.monitors
+      Sappy::Request.new('monitors').result.monitors
     end
 
     private
       def authenticate
-        response = Sappy::Request.new('auth', "Email=#{@username}&Password=#{@password}").perform
+        response = Sappy::Request.new('auth', "Email=#{@username}&Password=#{@password}")
         @authkey = response.result.key
       end
 
