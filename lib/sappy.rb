@@ -3,7 +3,7 @@ require 'active_support'
 
 $:.unshift File.dirname(__FILE__)
 
-require 'sappy/actions'
+require 'sappy/account'
 require 'sappy/monitor'
 require 'sappy/request'
 require 'sappy/response'
