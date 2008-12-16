@@ -4,13 +4,7 @@ module Sappy
       attr_reader :monitors
 
       def success(hash)
-        @monitors = []
-        monitors = hash["monitors"]
-        return if monitors.first["total"].to_i == 0
-
-        monitors.first["monitor"].each do |monitor|
-          @monitors << monitor
-        end
+        @monitors = hash["monitors"].first["monitor"] || []
       end
     end
   end
