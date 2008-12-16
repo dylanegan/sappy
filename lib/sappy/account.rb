@@ -24,6 +24,10 @@ module Sappy
       @sms_alerts = response.result.sms_alerts
     end
 
+    def monitors
+      Sappy::Request.new('monitors').perform.result.monitors
+    end
+
     private
       def authenticate
         response = Sappy::Request.new('auth', "Email=#{@username}&Password=#{@password}").perform

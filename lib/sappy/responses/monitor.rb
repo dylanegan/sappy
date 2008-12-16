@@ -6,7 +6,7 @@ module Sappy
         @monitors = []
         xml["monitors"].first["monitor"].each do |monitor|
           @monitors << Sappy::Monitor.new(monitor)
-        end
+        end unless xml["monitors"].first["total"].to_i == 0
       end
     end
   end
