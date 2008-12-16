@@ -33,8 +33,7 @@ module Sappy
     def handle_fail_whale
       case @result.code
         when "AUTH_EXPIRED"
-          Session.authenticate(true)
-          @request.perform
+          #@request.perform
         when "AUTH_ERR"
           raise "Authentication Error: #{@result.message}"
       end

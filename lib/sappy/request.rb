@@ -22,8 +22,9 @@ module Sappy
       @response.handle
     end
 
-    def authkey
-      Sappy::Session.key
-    end
+    private
+      def authkey
+        Sappy::Account.current.authkey
+      end
   end
 end

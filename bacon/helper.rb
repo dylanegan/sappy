@@ -10,7 +10,7 @@ end
 shared :setup_and_teardown do
   before do
     rr_reset
-    stub(Sappy::Session).key.returns('authkey')
+    stub(Sappy::Account).authkey.returns('authkey')
   end
 
   after do
