@@ -3,6 +3,8 @@ require 'sappy/responses/account_info'
 require 'sappy/responses/monitors'
 require 'sappy/responses/add_monitor'
 require 'sappy/responses/remove_monitor'
+require 'sappy/responses/enable_monitor'
+require 'sappy/responses/disable_monitor'
 
 module Sappy
   module Responses
@@ -12,6 +14,8 @@ module Sappy
       "monitors" => Monitors,
       "addmonitor" => AddMonitor,
       "removemonitor" => RemoveMonitor,
+      "enablemonitor" => EnableMonitor,
+      "disablemonitor" => DisableMonitor
     }
 
     def self.for(action)

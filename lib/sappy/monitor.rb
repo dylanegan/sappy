@@ -54,10 +54,12 @@ module Sappy
 
     def disable
       @account.request('disablemonitor', "MonitorId" => id)
+      @active = "no"
     end
 
     def enable
       @account.request('enablemonitor', "MonitorId" => id)
+      @active = "yes"
     end
 
     def save
