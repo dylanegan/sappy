@@ -19,6 +19,10 @@ module Sappy
       end
 
       describe "with no monitors" do
+        it "has available monitors" do
+          @account.available_monitors.should.not == 0
+        end
+
         it "has no monitors" do
           @account.monitors.size.should == 0
         end

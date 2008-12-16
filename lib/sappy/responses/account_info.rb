@@ -5,9 +5,9 @@ module Sappy
 
       def success(hash)
         accountinfo = hash["accountinfo"].first
-        @available_monitors = accountinfo["availablemonitors"]
-        @setup_monitors = accountinfo["setupmonitors"]
-        @sms_alerts = accountinfo["smsalerts"]
+        @available_monitors = accountinfo["availablemonitors"].to_i
+        @setup_monitors = accountinfo["setupmonitors"].to_i
+        @sms_alerts = accountinfo["smsalerts"].to_i
       end
     end
   end
