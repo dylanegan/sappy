@@ -22,20 +22,17 @@ spec = Gem::Specification.new do |s|
   s.email = EMAIL
   s.homepage = HOMEPAGE
   s.require_path = 'lib'
-  s.files = %w(README Rakefile) + Dir.glob("lib/**/*")
+  s.files = %w(README Rakefile) + Dir.glob("{lib,bacon}/**/*")
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
 
-require 'spec/rake/spectask'
-desc "Run specs"
-Spec::Rake::SpecTask.new(:spec) do |t|
-  t.spec_opts << %w(-fs --color) << %w(-O spec/spec.opts)
-  t.spec_opts << '--loadby' << 'random'
-  t.spec_files = %w(models).collect { |dir| Dir["spec/#{dir}/**/*_spec.rb"] }.flatten
+desc "Run bacon"
+task :bacon do
+  puts `bacon #{Dir["bacon/**/*_bacon.rb"].join(" ")}`
 end
 
-desc 'Default: run spec examples'
-task :default => 'spec'
+desc 'Default: run bacon'
+task :default => :bacon

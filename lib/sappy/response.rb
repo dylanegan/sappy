@@ -1,42 +1,43 @@
 require 'xmlsimple'
-require 'sappy/responses'
 
 module Sappy
   class Response
-    attr_reader :result, :status
+    class SessionExpired < Error; end
+    class UnhandledError < Error; end
 
-    def initialize(request)
-      @request = request
+    def self.parse(xml)
+      r = new(xml)
+      r.parse
+      r
     end
 
-    def handle
-      parse!
-      if self.fail?
-        handle_fail_whale
-      end
+    def initialize(xml)
+      @xml = xml
     end
 
-    def parse!
-      xml = XmlSimple.xml_in(@request.result.body_str)
-      @status = xml["stat"]
-      @result = if self.fail?
-        Sappy::Responses::Error.new(xml)
-      else
-        "Sappy::Responses::#{@request.method.classify}".constantize.new(xml)
-      end
-    end
-
-    def fail?
-      @status == "fail"
-    end
-
-    def handle_fail_whale
-      case @result.code
+    def parse
+      hash = XmlSimple.xml_in(@xml)
+      if hash["stat"] == "fail"
+        error = hash["err"]
+        message = error.first["msg"]
+        case code = error.first["code"]
         when "AUTH_EXPIRED"
-          #@request.perform
-        when "AUTH_ERR"
-          raise "Authentication Error: #{@result.message}"
+          raise SessionExpired, "The auth session expired, reconnect to continue using the API"
+        else
+          failure(code, message)
+          raise UnhandledError, "Unhandled error: #{code}, #{message}"
+        end
+      else
+        success(hash)
       end
+    end
+
+    def success(hash)
+      raise NotImplementedError, "Overwrite #success in a Response subclass"
+    end
+
+    def failure(code, message)
+      raise NotImplementedError, "Overwrite #failure in a Response subclass"
     end
   end
 end

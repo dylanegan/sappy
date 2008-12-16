@@ -1,9 +1,10 @@
 module Sappy
   module Responses
-    class Accountinfo
+    class AccountInfo < Response
       attr_reader :available_monitors, :setup_monitors, :sms_alerts
-      def initialize(xml)
-        accountinfo = xml["accountinfo"].first
+
+      def success(hash)
+        accountinfo = hash["accountinfo"].first
         @available_monitors = accountinfo["availablemonitors"]
         @setup_monitors = accountinfo["setupmonitors"]
         @sms_alerts = accountinfo["smsalerts"]

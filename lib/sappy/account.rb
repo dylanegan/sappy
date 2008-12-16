@@ -1,14 +1,24 @@
 module Sappy
   class Account
-    attr_reader :authkey, :username, :password, :available_monitors, :setup_monitors, :sms_alerts
-    cattr_accessor :current
+    attr_reader :authkey, :available_monitors, :setup_monitors, :sms_alerts
+
+    def self.login(username, password)
+      account = new(username, password)
+      account.login
+      account
+    end
 
     def initialize(username, password)
-      @username = username
-      @password = password
+      @username, @password = username, password
+    end
+
+    def login
       connect
-      Sappy::Account.current = self
       refresh!
+    end
+
+    def authenticated?
+      @authkey
     end
 
     def connect(forced = false)
@@ -18,24 +28,31 @@ module Sappy
     end
 
     def refresh!
-      response = Sappy::Request.new('accountinfo')
-      @available_monitors = response.result.available_monitors
-      @setup_monitors = response.result.setup_monitors
-      @sms_alerts = response.result.sms_alerts
+      response = request('accountinfo')
+      @available_monitors = response.available_monitors
+      @setup_monitors = response.setup_monitors
+      @sms_alerts = response.sms_alerts
     end
 
     def monitors
-      Sappy::Request.new('monitors').result.monitors
+      response = request('monitors')
+      response.monitors.map do |m|
+        Monitor.parse(self, m)
+      end
+    end
+
+    def add_monitor(name, service, location, host, period)
+      Monitor.create(self, name, service, location, host, period)
+    end
+
+    def request(action, parameters = {})
+      Request.perform(self, action, parameters)
     end
 
     private
       def authenticate
-        response = Sappy::Request.new('auth', "Email=#{@username}&Password=#{@password}")
-        @authkey = response.result.key
-      end
-
-      def authenticated?
-        @authkey
+        response = request('auth', "Email" => @username, "Password" => @password)
+        @authkey = response.key
       end
   end
 end

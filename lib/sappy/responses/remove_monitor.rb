@@ -1,17 +1,13 @@
 module Sappy
   module Responses
-    class Auth < Response
-      class LoginFailed < Error; end
-
-      attr_reader :key
+    class RemoveMonitor < Response
       def success(hash)
-        @key = hash["session"].first["key"]
       end
 
       def failure(code, message)
         case code
         when "WRONG_DATA"
-          raise LoginFailed, message
+          raise ArgumentError, "You didn't provide a correct monitor id: #{message}"
         end
       end
     end

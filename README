@@ -9,11 +9,10 @@ USAGE
 require 'rubygems'
 require 'sappy'
 
-@account = Sappy::Account.new('email@email.com', 'password')
+@account = Sappy::Account.login('email@email.com', 'password')
 
 monitors = @account.monitors
 monitor = monitors.first
 monitor.disable
 
-monitor = Sappy::Monitor.new(...)
-monitor.save
+monitor = @account.add_monitor(...)
