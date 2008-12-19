@@ -4,6 +4,7 @@ module Sappy
   describe Monitor do
     before do
       @account = Account.login("siteuptime-test@engineyard.com", "monitorey")
+      @account.monitors.each { |m| m.destroy }
       @account.add_monitor("awesome", "http", "sf", "spork.in/awesome", "60")
       @monitor = @account.monitors.first
     end
