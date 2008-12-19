@@ -7,7 +7,7 @@ module Sappy
     end
 
     # AuthKey (required)
-    #   Authentication key returned by ‘siteuptime.auth’ method.
+    #   Authentication key returned by siteuptime.auth method.
     # Name (required)
     #   Service name.
     # Service (required)
@@ -46,8 +46,8 @@ module Sappy
 
     def initialize(account, id, name, host, port, service, active, period)
       @account = account
-      @id, @name, @host, @port, @service = id, name, host, port, service
-      @active, @period, @current_status = active, period, current_status
+      @id, @name, @host, @port, @service = id.to_i, name, host, port.to_i, service
+      @active, @period, @current_status = active, period.to_i, current_status
     end
     attr_reader :id, :name, :host, :port, :service, :active, :period
     attr_accessor :current_status
