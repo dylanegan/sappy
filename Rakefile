@@ -4,8 +4,8 @@ require File.dirname(__FILE__) + '/lib/sappy/version'
 
 GEM_NAME = "sappy"
 GEM_VERSION = Sappy::VERSION
-AUTHORS = %w( abcde )
-EMAIL = "degan@engineyard.com"
+AUTHORS = %w( abcde halorgium )
+EMAIL = "degan@engineyard.com tcareysmith@engineyard.com"
 HOMEPAGE = "https://github.com/abcde/sappy"
 SUMMARY = "A wrapper for the SiteUptime API"
 
