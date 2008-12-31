@@ -19,6 +19,12 @@ module Sappy
       end
 
       describe "with no monitors" do
+        it "has details" do
+          @account.available_monitors.should.be.kind_of Integer
+          @account.setup_monitors.should.be.kind_of Integer
+          @account.sms_alerts.should.be.kind_of Integer
+        end
+
         it "has available monitors" do
           @account.available_monitors.should.not == 0
         end
