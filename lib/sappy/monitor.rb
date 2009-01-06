@@ -52,6 +52,10 @@ module Sappy
     attr_reader :id, :name, :host, :port, :service, :active, :period
     attr_accessor :current_status
 
+    def url
+      "#{service}://#{host}"
+    end
+
     def disable
       @account.request('disablemonitor', "MonitorId" => id)
       @active = "no"
