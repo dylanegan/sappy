@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require "irb"
+require "rubygems"
+
+require File.dirname(__FILE__) + '/../lib/sappy'
+
+if ARGV.size != 2
+  $stderr.puts "Credentials required."
+  exit 1
+end
+
+username = ARGV.shift
+password = ARGV.shift
+$stderr.puts "Starting up the Sappy with #{username}/#{password}"
+@account = Sappy::Account.login(username, password)
+
+if __FILE__ == $0
+  IRB.start(__FILE__)
+else
+  # check -e option
+  if /^-e$/ =~ $0
+    IRB.start(__FILE__)
+  else
+    IRB.setup(__FILE__)
+  end
+end
