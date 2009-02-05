@@ -34,12 +34,10 @@ module Sappy
     #   Send alerts after specified number of failures. Available values are: 1, 2, 3, 4, 5. Default value is 1.
     # Timeout (optional)
     #   Monitor socket connection timeout value in seconds. Available values are: 15, 20, 25, 30, 35. Default value is 25.
-    attr_accessor :alt_email_alerts, :check_period, :content, :current_status, :domain, :dont_send_up_alert,
-                  :enabled, :host_name, :id, :ip, :location, :login, :password, :name, :port_number, :service,
-                  :send_alert_after, :send_all_down_alerts, :send_jabber_alert, :send_sms, :send_url_alert, :timeout
+    attr_accessor :active, :altemailalerts, :period, :content, :current_status, :domain, :dontsendupalert,
+                  :host, :id, :ip, :location, :login, :password, :name, :port, :service,
+                  :sendalertafter, :sendalldownalerts, :sendjabberalert, :sendsms, :sendurlalert, :timeout
     attr_reader   :account
-    alias :host :host_name
-    alias :port :port_number
 
     def initialize(account, attrs)
       @account = account
@@ -59,34 +57,34 @@ module Sappy
     end
 
     def attributes
-      { "Name" => name, "Service" => service, "Location" => location, "HostName" => host_name,
-        "CheckPeriod" => check_period, "PortNumber" => port_number, "Login" => login, "Password" => password,
-        "Content" => content, "Domain" => domain, "IP" => ip, "SendSms" => send_sms, "SendUrlAlert" => send_url_alert,
-        "SendJabberAlert" => send_jabber_alert, "Enabled" => enabled, "SendAlertAfter" => send_alert_after, "Timeout" => timeout }
+      { "Name" => name, "Service" => service, "Location" => location, "HostName" => host,
+        "CheckPeriod" => period, "PortNumber" => port, "Login" => login, "Password" => password,
+        "Content" => content, "Domain" => domain, "IP" => ip, "SendSms" => sendsms, "SendUrlAlert" => sendurlalert,
+        "SendJabberAlert" => sendjabberalert, "Enabled" => active, "SendAlertAfter" => sendalertafter, "Timeout" => timeout }
     end
 
     def attributes=(attrs)
       attrs.each do |attribute,value|
-        send("#{attribute.to_s.underscore}=", value) if respond_to? "#{attribute.to_s.underscore}="
+        send("#{attribute.to_s}=", value) if respond_to? "#{attribute.to_s}="
       end
     end
 
     def url
-      "#{service}://#{host_name}"
+      "#{service}://#{host}"
     end
 
     def disable!
       @account.request('disablemonitor', "MonitorId" => id)
-      @enabled = "no"
+      @active = "no"
     end
 
     def enable!
       @account.request('enablemonitor', "MonitorId" => id)
-      @enabled = "yes"
+      @active = "yes"
     end
 
-    def enabled?
-      enabled == "yes"
+    def active?
+      active == "yes"
     end
 
     def new_record?

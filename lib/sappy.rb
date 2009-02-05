@@ -3,8 +3,6 @@ require 'rubygems'
 
 $:.unshift File.dirname(__FILE__)
 
-require 'core_ext/string'
-
 module Sappy
   class Error < StandardError; end
 end

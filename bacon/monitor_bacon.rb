@@ -5,7 +5,7 @@ module Sappy
     before do
       @account = Account.login("siteuptime-test@engineyard.com", "monitorey")
       @account.monitors.each { |m| m.destroy }
-      @monitor = @account.add_monitor({:name => "awesome", :service => "http", :location => "sf", :host_name => "spork.in/awesome", :check_period => "60"})
+      @monitor = @account.add_monitor({:name => "awesome", :service => "http", :location => "sf", :host => "spork.in/awesome", :period => "60"})
     end
 
     describe "an active monitor" do
@@ -15,7 +15,7 @@ module Sappy
 
       it "can be disabled" do
         @monitor.disable!
-        @monitor.should.not.be.enabled
+        @monitor.should.not.be.active
       end
     end
 
@@ -26,7 +26,7 @@ module Sappy
 
       it "can be enabled" do
         @monitor.enable!
-        @monitor.should.be.enabled
+        @monitor.should.be.active
       end
     end
 

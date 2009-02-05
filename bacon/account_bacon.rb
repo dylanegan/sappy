@@ -34,9 +34,11 @@ module Sappy
         end
 
         it "can create a new monitor" do
-          monitor = @account.add_monitor({:name => "awesome", :service => "http", :location => "sf", :host_name => "spork.in/awesome", :check_period => "60"})
+          monitor = @account.add_monitor({:name => "awesome", :service => "http", :location => "sf", :host => "spork.in/awesome", :period => "60"})
+          puts monitor.inspect
           monitor.id.should.not.be.nil
           monitors = @account.monitors
+          puts monitors.first.inspect
           monitors.size.should == 1
           monitors.first.name.should == "awesome"
         end
