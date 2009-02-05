@@ -1,5 +1,5 @@
 require 'rubygems'
-#require 'active_support'
+require 'xmlsimple'
 
 $:.unshift File.dirname(__FILE__)
 

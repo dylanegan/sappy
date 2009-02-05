@@ -1,5 +1,3 @@
-require 'xmlsimple'
-
 module Sappy
   class Response
     class SessionExpired < Error; end
