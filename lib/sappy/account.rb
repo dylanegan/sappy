@@ -41,8 +41,8 @@ module Sappy
       end
     end
 
-    def add_monitor(name, service, location, host, period)
-      Monitor.create(self, name, service, location, host, period)
+    def add_monitor(attributes)
+      Monitor.create(self, attributes)
     end
 
     def request(action, parameters = {})
