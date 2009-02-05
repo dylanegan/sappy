@@ -1,13 +1,5 @@
 module Sappy
   class Monitor
-    def self.parse(account, hash)
-      a = new(account, hash["id"], hash["name"], hash["host"], hash["port"], hash["service"], hash["active"], hash["period"])
-      a.current_status = hash["current_status"]
-      a
-    end
-
-    # AuthKey (required)
-    #   Authentication key returned by siteuptime.auth method.
     # Name (required)
     #   Service name.
     # Service (required)
@@ -32,42 +24,81 @@ module Sappy
     #   Lookup domain. Used for 'dns' services only. Required if 'Domain' is not empty.
     # SendSms (optional)
     #   0 or 1. Send SMS alerts on failures. Default value is '0'. 
+    # SendUrlAlert (optional)
+    #   0 or 1. Send Url (JSON) alerts on failures to Url specified on My Profile section. Default value is '0'. 
+    # SendJabberAlert (optional)
+    #   0 or 1. Send XMPP/Jabber alerts on failures to Jabber ID specified on My Profile section. Default value is '0'. 
     # Enabled (optional)
     #   0 or 1. Monitor is enabled on not. Default value is '1'. 
     # SendAlertAfter (optional)
     #   Send alerts after specified number of failures. Available values are: 1, 2, 3, 4, 5. Default value is 1.
     # Timeout (optional)
     #   Monitor socket connection timeout value in seconds. Available values are: 15, 20, 25, 30, 35. Default value is 25.
-    def self.create(account, name, service, location, host, period)
-      account.request("addmonitor", "Name" => name, "Service" => service,
-                      "Location" => location, "HostName" => host,
-                      "CheckPeriod" => period, "Enabled" => "0")
+    attr_accessor :alt_email_alerts, :check_period, :content, :current_status, :domain, :dont_send_up_alert,
+                  :enabled, :host_name, :id, :ip, :location, :login, :password, :name, :port_number, :service,
+                  :send_alert_after, :send_all_down_alerts, :send_jabber_alert, :send_sms, :send_url_alert, :timeout
+    attr_reader   :account
+    alias :host :host_name
+    alias :port :port_number
+
+    def initialize(account, attrs)
+      @account = account
+      self.attributes = attrs
     end
 
-    def initialize(account, id, name, host, port, service, active, period)
-      @account = account
-      @id, @name, @host, @port, @service = id.to_i, name, host, port.to_i, service
-      @active, @period, @current_status = active, period.to_i, current_status
+    def self.parse(account, attrs)
+      a = new(account, attrs)
+      a.current_status = attrs["current_status"]
+      a
     end
-    attr_reader :id, :name, :host, :port, :service, :active, :period
-    attr_accessor :current_status
+
+    def self.create(account, attrs)
+      monitor = new(account, attrs)
+      monitor.save
+      monitor
+    end
+
+    def attributes
+      { "Name" => name, "Service" => service, "Location" => location, "HostName" => host_name,
+        "CheckPeriod" => check_period, "PortNumber" => port_number, "Login" => login, "Password" => password,
+        "Content" => content, "Domain" => domain, "IP" => ip, "SendSms" => send_sms, "SendUrlAlert" => send_url_alert,
+        "SendJabberAlert" => send_jabber_alert, "Enabled" => enabled, "SendAlertAfter" => send_alert_after, "Timeout" => timeout }
+    end
+
+    def attributes=(attrs)
+      attrs.each do |attribute,value|
+        send("#{attribute.to_s.underscore}=", value) if respond_to? "#{attribute.to_s.underscore}="
+      end
+    end
 
     def url
-      "#{service}://#{host}"
+      "#{service}://#{host_name}"
     end
 
     def disable
       @account.request('disablemonitor', "MonitorId" => id)
-      @active = "no"
+      enabled = "no"
     end
 
     def enable
       @account.request('enablemonitor', "MonitorId" => id)
-      @active = "yes"
+      enabled = "yes"
+    end
+
+    def new_record?
+      id.nil?
     end
 
     def save
-      raise "Not yet implemented."
+      new_record? ? create : update
+    end
+
+    def create
+      @id = @account.request("addmonitor", attributes).id
+    end
+
+    def update
+      @account.request("editmonitor", attributes.merge({ "MonitorId" => id }))
     end
 
     def destroy
