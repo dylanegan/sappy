@@ -75,14 +75,18 @@ module Sappy
       "#{service}://#{host_name}"
     end
 
-    def disable
+    def disable!
       @account.request('disablemonitor', "MonitorId" => id)
-      enabled = "no"
+      @enabled = "no"
     end
 
-    def enable
+    def enable!
       @account.request('enablemonitor', "MonitorId" => id)
-      enabled = "yes"
+      @enabled = "yes"
+    end
+
+    def enabled?
+      enabled == "yes"
     end
 
     def new_record?
