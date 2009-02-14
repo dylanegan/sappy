@@ -14,7 +14,7 @@ module Sappy
     end
 
     def parse
-      hash = XmlSimple.xml_in(@xml)
+      hash = XmlSimple.xml_in(@xml.to_s)
       if hash["stat"] == "fail"
         error = hash["err"]
         message = error.first["msg"]
