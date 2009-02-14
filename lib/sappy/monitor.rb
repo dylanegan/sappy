@@ -48,10 +48,11 @@ module Sappy
     #   0 or 1. Add/remove monitor to/from your public summary status report. Default value is '1' (add). 
     # Timeout (optional)
     #   Monitor socket connection timeout value in seconds. Available values are: 15, 20, 25, 30, 35. Default value is 25.
-    attr_accessor :active, :addtostatuspage, :altemailalerts, :content, :current_status, :domain,
-                  :dontsendupalert, :downsubject, :enablepublicstatistics, :host, :id, :ip,
-                  :location, :login, :password, :period, :port, :name, :service, :sendalertafter,
-                  :sendalldownalerts, :sendjabberalert, :sendsms, :sendurlalert, :timeout, :upsubject
+    attr_accessor :altemailalerts, :content, :current_status, :domain,
+                  :downsubject, :host, :id, :ip, :location, :login,
+                  :password, :period, :port, :name, :service, :timeout, :upsubject
+    boolean_accessor :active, :addtostatuspage, :dontsendupalert, :enablepublicstatistics, 
+                  :sendalertafter, :sendalldownalerts, :sendjabberalert, :sendsms, :sendurlalert
     attr_reader   :account
 
     def initialize(account, attrs)
