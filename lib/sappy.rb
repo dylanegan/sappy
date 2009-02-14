@@ -8,6 +8,7 @@ module Sappy
 end
 
 require 'sappy/account'
+require 'sappy/core_ext'
 require 'sappy/monitor'
 require 'sappy/request'
 require 'sappy/response'
