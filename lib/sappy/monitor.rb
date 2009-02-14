@@ -23,20 +23,35 @@ module Sappy
     # IP (optional)
     #   Lookup domain. Used for 'dns' services only. Required if 'Domain' is not empty.
     # SendSms (optional)
-    #   0 or 1. Send SMS alerts on failures. Default value is '0'. 
+    #   0 or 1. Send SMS alerts on failures. Default value is '0'.
     # SendUrlAlert (optional)
     #   0 or 1. Send Url (JSON) alerts on failures to Url specified on My Profile section. Default value is '0'. 
     # SendJabberAlert (optional)
     #   0 or 1. Send XMPP/Jabber alerts on failures to Jabber ID specified on My Profile section. Default value is '0'. 
+    # AltEmailAlerts (optional)
+    #   Alternative Email alerts addresses separated with comma.
+    # DontSendUpAlert (optional)
+    #   0 or 1. Set to 1 if you do not what to receive Up alerts for a monitor. Default value is '0'.
+    # SendAllDownAlerts (optional)
+    #   0 or 1. Set to 1 if you what to receive Down alert on each failure check. Default value is '0'.
     # Enabled (optional)
     #   0 or 1. Monitor is enabled on not. Default value is '1'. 
     # SendAlertAfter (optional)
     #   Send alerts after specified number of failures. Available values are: 1, 2, 3, 4, 5. Default value is 1.
+    # DownSubject (optional)
+    #   Email subject value for Down alerts. Default subject will be used if empty.
+    # UpSubject (optional)
+    #   Email subject value for Up alerts. Default subject will be used if empty.
+    # EnablePublicStatistics (optional)
+    #   0 or 1. Allow/Deny visitor to see public statistics report. Default value is '1' (allow).
+    # AddToStatusPage (optional)
+    #   0 or 1. Add/remove monitor to/from your public summary status report. Default value is '1' (add). 
     # Timeout (optional)
     #   Monitor socket connection timeout value in seconds. Available values are: 15, 20, 25, 30, 35. Default value is 25.
-    attr_accessor :active, :altemailalerts, :period, :content, :current_status, :domain, :dontsendupalert,
-                  :host, :id, :ip, :location, :login, :password, :name, :port, :service,
-                  :sendalertafter, :sendalldownalerts, :sendjabberalert, :sendsms, :sendurlalert, :timeout
+    attr_accessor :active, :addtostatuspage, :altemailalerts, :content, :current_status, :domain,
+                  :dontsendupalert, :downsubject, :enablepublicstatistics, :host, :id, :ip,
+                  :location, :login, :password, :period, :port, :name, :service, :sendalertafter,
+                  :sendalldownalerts, :sendjabberalert, :sendsms, :sendurlalert, :timeout, :upsubject
     attr_reader   :account
 
     def initialize(account, attrs)
@@ -60,7 +75,10 @@ module Sappy
       { "Name" => name, "Service" => service, "Location" => location, "HostName" => host,
         "CheckPeriod" => period, "PortNumber" => port, "Login" => login, "Password" => password,
         "Content" => content, "Domain" => domain, "IP" => ip, "SendSms" => sendsms, "SendUrlAlert" => sendurlalert,
-        "SendJabberAlert" => sendjabberalert, "Enabled" => active, "SendAlertAfter" => sendalertafter, "Timeout" => timeout }
+        "SendJabberAlert" => sendjabberalert, "AltEmailAlerts" => altemailalerts, "DontSendUpAlert" => dontsendupalert,
+        "SendAllDownAlerts" => sendalldownalerts, "Enabled" => active, "SendAlertAfter" => sendalertafter,
+        "DownSubject" => downsubject, "UpSubject" => upsubject, "EnablePublicStatistics" => enablepublicstatistics,
+        "AddToStatusPage" => addtostatuspage, "Timeout" => timeout }
     end
 
     def attributes=(attrs)
