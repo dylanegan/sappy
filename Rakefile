@@ -57,7 +57,7 @@ task :release do
 
   puts "Uploading gem to internal gem server"
   ENV.delete("GEM_PATH")
-  %x{ samurai gem_upload #{GEM_NAME} #{version} }
+  %x{ samurai gem_upload pkg/#{GEM_NAME}-#{version}.gem }
 
   puts "Reseting back to master"
   system("git", "checkout", "master")
