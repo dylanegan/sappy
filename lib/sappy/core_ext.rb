@@ -1,3 +1,1 @@
-$:.unshift File.dirname(__FILE__)
-
-require 'core_ext/module/boolean_accessor'
+require File.dirname(__FILE__) + '/core_ext/module/boolean_accessor'
