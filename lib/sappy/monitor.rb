@@ -88,6 +88,10 @@ module Sappy
       end
     end
 
+    def id=(value)
+      @id = value.to_i
+    end
+
     def url
       "#{service}://#{host}"
     end
