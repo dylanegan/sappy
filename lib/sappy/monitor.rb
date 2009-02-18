@@ -4,12 +4,15 @@ module Sappy
     #   Service name.
     # Service (required)
     #   Service type. Available values are: http, smtp, ftp, pop3, https, ping, dns
+    SERVICES = %w(http smtp ftp pop3 https ping dns)
     # Location (required)
-    #   Check location. Available values are: sf, ny, ch, ln (i.e. San Francisco, New York, Chicago, London). 
+    #   Check location. Available values are: sf, ny, ch, ln (i.e. San Francisco, New York, Chicago, London).
+    LOCATIONS = {'sf' => 'San Francisco', 'ny' => 'New York', 'ch' => 'Chicago', 'ln' => 'London'}
     # HostName (required)
     #   Monitored Host name, IP or Page URL.
     # CheckPeriod (required)
     #   Monitoring check period. Available values are: 2, 5, 15, 30, 60
+    CHECK_PERIODS = [2, 5, 15, 30, 60]
     # PortNumber (optional)
     #   Custom port number. Default service port using by default.
     # Login (optional)
@@ -38,6 +41,7 @@ module Sappy
     #   0 or 1. Monitor is enabled on not. Default value is '1'. 
     # SendAlertAfter (optional)
     #   Send alerts after specified number of failures. Available values are: 1, 2, 3, 4, 5. Default value is 1.
+    SEND_ALERT_AFTER = [1, 2, 3, 4, 5]
     # DownSubject (optional)
     #   Email subject value for Down alerts. Default subject will be used if empty.
     # UpSubject (optional)
@@ -48,6 +52,8 @@ module Sappy
     #   0 or 1. Add/remove monitor to/from your public summary status report. Default value is '1' (add). 
     # Timeout (optional)
     #   Monitor socket connection timeout value in seconds. Available values are: 15, 20, 25, 30, 35. Default value is 25.
+    TIMEOUTS = [15, 20, 25, 30, 35]
+
     attr_accessor :altemailalerts, :content, :current_status, :domain,
                   :downsubject, :host, :id, :ip, :location, :login,
                   :password, :period, :port, :name, :service, :timeout, :upsubject
