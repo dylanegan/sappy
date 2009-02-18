@@ -7,7 +7,7 @@ module Sappy
     SERVICES = %w(http smtp ftp pop3 https ping dns)
     # Location (required)
     #   Check location. Available values are: sf, ny, ch, ln (i.e. San Francisco, New York, Chicago, London).
-    LOCATIONS = {'sf' => 'San Francisco', 'ny' => 'New York', 'ch' => 'Chicago', 'ln' => 'London'}
+    LOCATIONS = {'sf' => 'San Francisco', 'ny' => 'New York', 'ch' => 'Chicago', 'ln' => 'London'}.sort
     # HostName (required)
     #   Monitored Host name, IP or Page URL.
     # CheckPeriod (required)
