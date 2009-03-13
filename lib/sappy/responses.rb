@@ -1,5 +1,6 @@
 require 'sappy/responses/auth'
 require 'sappy/responses/account_info'
+require 'sappy/responses/summary_statistics'
 require 'sappy/responses/monitors'
 require 'sappy/responses/add_monitor'
 require 'sappy/responses/edit_monitor'
@@ -12,6 +13,7 @@ module Sappy
     MAP = {
       "auth" => Auth,
       "accountinfo" => AccountInfo,
+      "summarystatistics" => SummaryStatistics,
       "monitors" => Monitors,
       "addmonitor" => AddMonitor,
       "editmonitor" => EditMonitor,

@@ -1,6 +1,7 @@
 module Sappy
   class Account
-    attr_reader :authkey, :available_monitors, :setup_monitors, :sms_alerts
+    attr_reader :authkey, :available_monitors, :down_monitors, :inactive_monitors,
+                :setup_monitors, :sms_alerts, :up_monitors
 
     def self.login(username, password)
       account = new(username, password)
@@ -32,10 +33,15 @@ module Sappy
       @available_monitors = response.available_monitors
       @setup_monitors = response.setup_monitors
       @sms_alerts = response.sms_alerts
+      response = request('summarystatistics')
+      @up_monitors = response.up
+      @down_monitors = response.down
+      @inactive_monitors = response.inactive
     end
 
-    def monitors
-      response = request('monitors')
+    def monitors(ids = [])
+      params = ids.any? ? { "MonitorId" => ids.join(',') } : {}
+      response = request('monitors', params)
       response.monitors.map do |m|
         Monitor.parse(self, m)
       end
