@@ -15,5 +15,5 @@ end
 
 desc "Run bacon"
 task :bacon do
-  puts `bacon #{Dir["bacon/**/*_bacon.rb"].join(" ")}`
+  puts `bacon #{Dir["spec/**/*_bacon.rb"].join(" ")}`
 end
