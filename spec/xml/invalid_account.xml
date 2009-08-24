@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Date: Mon, 24 Aug 2009 05:00:31 GMT
+Server: Apache/2.2.3 (Red Hat)
+X-Powered-By: PHP/5.1.6
+Content-Length: 126
+Connection: close
+Content-Type: text/xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<rsp stat="fail">
+   <err code="WRONG_DATA" msg="Wrong email or password" />
+</rsp>
