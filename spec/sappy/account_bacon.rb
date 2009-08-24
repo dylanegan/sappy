@@ -18,6 +18,10 @@ module Sappy
         end
       end
 
+      it "should obtain an auth key" do
+        @account.authkey.should == "b7kks5mh1l300v5segaksm8gh3"
+      end
+
       describe "with no monitors" do
         it "has available monitors" do
           @account.available_monitors.should > 0

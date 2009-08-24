@@ -29,14 +29,8 @@ module Sappy
     end
 
     def refresh!
-      response = request('accountinfo')
-      @available_monitors = response.available_monitors
-      @setup_monitors = response.setup_monitors
-      @sms_alerts = response.sms_alerts
-      response = request('summarystatistics')
-      @up_monitors = response.up
-      @down_monitors = response.down
-      @inactive_monitors = response.inactive
+      refresh_account_info
+      refresh_summary_statistics
     end
 
     def monitors(ids = [])
@@ -59,6 +53,20 @@ module Sappy
       def authenticate
         response = request('auth', "Email" => @username, "Password" => @password)
         @authkey = response.key
+      end
+
+      def refresh_account_info
+        response = request('accountinfo')
+        @available_monitors = response.available_monitors
+        @setup_monitors = response.setup_monitors
+        @sms_alerts = response.sms_alerts
+      end
+
+      def refresh_summary_statistics
+        response = request('summarystatistics')
+        @up_monitors = response.up
+        @down_monitors = response.down
+        @inactive_monitors = response.inactive
       end
   end
 end
