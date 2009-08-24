@@ -1,7 +1,9 @@
 require 'rubygems'
 require 'bacon'
-require 'rr'
+require 'fakeweb'
 require 'pp'
+require 'rr'
+
 require File.dirname(__FILE__) + '/../lib/sappy'
 
 class Bacon::Context
