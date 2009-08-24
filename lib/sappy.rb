@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'xmlsimple'
 
+require File.dirname(__FILE__) + '/core_ext'
+
 $:.unshift File.dirname(__FILE__)
 
 module Sappy
@@ -8,7 +10,6 @@ module Sappy
 end
 
 require 'sappy/account'
-require 'sappy/core_ext'
 require 'sappy/monitor'
 require 'sappy/request'
 require 'sappy/response'
