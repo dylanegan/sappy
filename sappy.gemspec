@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sappy}
-  s.version = "0.0.9"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dylan Egan", "Tim Carey-Smith"]
@@ -18,10 +18,6 @@ Gem::Specification.new do |s|
     "README.markdown",
      "Rakefile",
      "VERSION",
-     "bacon/account_bacon.rb",
-     "bacon/helper.rb",
-     "bacon/monitor_bacon.rb",
-     "bacon/xml/monitor_list.xml",
      "lib/core_ext.rb",
      "lib/core_ext/module/boolean_accessor.rb",
      "lib/sappy.rb",
@@ -46,6 +42,11 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Wrapping that shit!}
+  s.test_files = [
+    "spec/helper.rb",
+     "spec/sappy/account_bacon.rb",
+     "spec/sappy/monitor_bacon.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
