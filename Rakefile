@@ -8,7 +8,10 @@ begin
     gemspec.homepage = "http://github.com/abcde/sappy"
     gemspec.authors = ["Dylan Egan", "Tim Carey-Smith"]
     gemspec.files = %w(README.markdown Rakefile VERSION) + Dir.glob("{lib,bacon}/**/*")
+    gemspec.rubyforge_project = 'abcde'
   end
+
+  Jeweler::RubyforgeTasks.new
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end

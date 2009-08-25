@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dylan Egan", "Tim Carey-Smith"]
-  s.date = %q{2009-08-24}
+  s.date = %q{2009-08-26}
   s.default_executable = %q{shell}
   s.description = %q{A wrapper for the SiteUptime API}
   s.email = ["dylanegan@gmail.com", "tim@spork.in"]
@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/abcde/sappy}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{abcde}
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Wrapping that shit!}
   s.test_files = [
