@@ -20,3 +20,17 @@ desc "Run bacon"
 task :bacon do
   puts `bacon #{Dir["spec/**/*_bacon.rb"].join(" ")}`
 end
+
+begin
+  require 'spec/rake/spectask'  
+rescue LoadError
+  puts 'sudo gem install rspec'
+end
+
+desc 'Default: Runs spec'
+task :default => 'spec'
+Spec::Rake::SpecTask.new(:spec) do |t|
+  t.spec_opts << %w(-fs --color) << %w(-o spec/spec.opts)
+  t.spec_opts << '--loadby' << 'mtime'
+  t.spec_files = Dir["spec/sappy/**/*_bacon.rb"]
+end

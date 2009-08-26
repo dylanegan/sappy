@@ -11,15 +11,22 @@ module Sappy
     end
 
     describe "with correct credentials" do
+      before(:all) do
+        @account = Account.login(USERNAME, PASSWORD)
+      end
+      
       before do
-        @account = Account.login("valid@email.com", "password")
         @account.monitors.each do |m|
           m.destroy
         end
       end
 
       it "should obtain an auth key" do
-        @account.authkey.should == "b7kks5mh1l300v5segaksm8gh3"
+        if ENV['LIVE_SPECS']
+          @account.authkey.should.be.kind_of(String)
+        else
+          @account.authkey.should == "b7kks5mh1l300v5segaksm8gh3"
+        end
       end
 
       describe "with no monitors" do
@@ -36,9 +43,13 @@ module Sappy
         end
 
         it "can create a new monitor" do
-          monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "new-sf-monitor.com", :period => "60"})
+          monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "engineyard.com", :period => "60"})
           monitor.id.should.not.be.nil
-          FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page('monitors_1'))
+          if ENV['LIVE_SPECS']
+            @account.available_monitors.should == 2
+          else
+            FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page('monitors_1'))
+          end
           monitors = @account.monitors
           monitors.size.should == 1
           monitors.first.name.should == "New Monitor"

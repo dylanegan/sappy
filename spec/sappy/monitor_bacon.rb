@@ -2,10 +2,13 @@ require File.dirname(__FILE__) + '/../helper'
 
 module Sappy
   describe Monitor do
+    before(:all) do
+      @account = Account.login(USERNAME, PASSWORD)
+    end
+    
     before do
-      @account = Account.login("valid@email.com", "password")
       @account.monitors.each { |m| m.destroy }
-      @monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "new-sf-monitor.com", :period => "60"})
+      @monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "engineyard.com", :period => "60"})
     end
 
     describe "an active monitor" do
@@ -32,10 +35,14 @@ module Sappy
 
     describe "a monitor" do
       it "can be destroyed" do
-        FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page('monitors_1'))
+        if ENV['LIVE_SPECS']
+          FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page('monitors_1'))
+        end
         @account.monitors.size.should == 1
         lambda { @monitor.destroy }.should.not.raise
-        FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page('monitors'))
+        if ENV['LIVE_SPECS']
+          FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page('monitors'))
+        end
         @account.monitors.size.should == 0
       end
     end
