@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../helper'
 
 module Sappy
   describe Monitor do
-    before(:all) do
+    before do
       @account = Account.login(USERNAME, PASSWORD)
     end
     

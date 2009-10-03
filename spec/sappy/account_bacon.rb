@@ -11,7 +11,7 @@ module Sappy
     end
 
     describe "with correct credentials" do
-      before(:all) do
+      before do
         @account = Account.login(USERNAME, PASSWORD)
       end
       
