@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'xmlsimple'
 
 require File.dirname(__FILE__) + '/core_ext'
