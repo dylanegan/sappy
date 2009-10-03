@@ -9,6 +9,9 @@ begin
     gemspec.authors = ["Dylan Egan", "Tim Carey-Smith"]
     gemspec.files = %w(README.markdown Rakefile VERSION) + Dir.glob("{lib,bacon}/**/*")
     gemspec.rubyforge_project = 'abcde'
+    gemspec.add_dependency "rack", "1.0.0"
+    gemspec.add_dependency "rest-client", "1.0.3"
+    gemspec.add_dependency "xml-simple", "1.0.12"
   end
 
   Jeweler::RubyforgeTasks.new
