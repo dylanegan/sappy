@@ -4,6 +4,10 @@
 
 A ruby library providing a wrapper around the SiteUptime API.
 
+## Installation:
+
+    gem install sappy -s http://gemcutter.org
+
 ## Usage: 
 
     require 'rubygems'
