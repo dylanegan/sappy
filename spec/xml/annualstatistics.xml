@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Date: Tue, 06 Oct 2009 22:36:07 GMT
+Server: Apache/2.2.3 (Red Hat)
+X-Powered-By: PHP/5.1.6
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Length: 176
+Connection: close
+Content-Type: text/xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<rsp stat="ok">
+    <monthlystats total="0" timezone="PST+10.0" numchecks="0" numfailures="0" uptime="n/a">
+    </monthlystats>
+</rsp>

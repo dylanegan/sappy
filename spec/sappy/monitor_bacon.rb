@@ -45,6 +45,32 @@ module Sappy
         end
         @account.monitors.size.should == 0
       end
+
+      describe "statistics" do
+        before do
+          unless ENV['LIVE_SPECS']
+            FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&Month=11&method=siteuptime.dailystatistics&Day=28&Year=2006&MonitorId=84043", :response => cached_page('dailystatistics'))
+            FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&Month=6&method=siteuptime.monthlystatistics&Year=2007&MonitorId=84043", :response => cached_page('monthlystatistics'))
+            FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.annualstatistics&Year=&MonitorId=84043", :response => cached_page('annualstatistics'))
+          end
+          @monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "engineyard.com", :period => "60"})
+        end
+
+        # it "should provide daily" do
+        #  @monitor.daily_statistics(2006, 11, 28).should.be.instance_of Statistics::Daily
+        # end
+        it "should raise error for daily (due to malformed XML from SiteUptime)" do
+          lambda { @monitor.daily_statistics(2006, 11, 28) }.should.raise REXML::ParseException 
+        end
+
+        it "should provide monthly" do
+          @monitor.monthly_statistics(2007, 6).should.be.instance_of Statistics::Monthly
+        end
+
+        it "should provide annual" do
+          @monitor.annual_statistics.should.be.instance_of Statistics::Annual
+        end
+      end
     end
   end
 end

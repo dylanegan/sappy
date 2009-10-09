@@ -132,16 +132,16 @@ module Sappy
       @account.request('removemonitor', "MonitorId" => id)
     end
 
-    def daily_statistics
-      raise "Not yet implemented."
+    def daily_statistics(year, month, day)
+      Statistics::Daily.new(@account.request('dailystatistics', "MonitorId" => id, "Year" => year, "Month" => month, "Day" => day).statistics)
     end
 
-    def monthly_statistics
-      raise "Not yet implemented."
+    def monthly_statistics(year, month)
+      Statistics::Monthly.new(@account.request('monthlystatistics', "MonitorId" => id, "Year" => year, "Month" => month).statistics)
     end
 
-    def annual_statistics
-      raise "Not yet implemented."
+    def annual_statistics(year = "")
+      Statistics::Annual.new(@account.request('annualstatistics', "MonitorId" => id, "Year" => year).statistics)
     end
   end
 end
