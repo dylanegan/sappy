@@ -56,11 +56,8 @@ module Sappy
           @monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "engineyard.com", :period => "60"})
         end
 
-        # it "should provide daily" do
-        #  @monitor.daily_statistics(2006, 11, 28).should.be.instance_of Statistics::Daily
-        # end
-        it "should raise error for daily (due to malformed XML from SiteUptime)" do
-          lambda { @monitor.daily_statistics(2006, 11, 28) }.should.raise REXML::ParseException 
+        it "should provide daily" do
+          @monitor.daily_statistics(2006, 11, 28).should.be.instance_of Statistics::Daily
         end
 
         it "should provide monthly" do

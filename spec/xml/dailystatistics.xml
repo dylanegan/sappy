@@ -10,7 +10,7 @@ Connection: close
 Content-Type: text/xml
 
 <?xml version="1.0" encoding="utf-8"?>
-<rsp stat="ok"/>
+<rsp stat="ok">
     <checks total="0" timezone="PST+10.0" numchecks="0" numfailures="0" uptime="n/a">
     </checks>
 </rsp>
