@@ -21,7 +21,7 @@ end
 
 desc 'Run bacon'
 task :bacon do
-  puts `bacon #{Dir["spec/**/*_bacon.rb"].join(" ")}`
+  puts `#{File.dirname(__FILE__) + '/tmp/bin/bacon'} #{Dir["spec/**/*_bacon.rb"].join(" ")}`
 end
 
 desc 'Default: Runs spec'
