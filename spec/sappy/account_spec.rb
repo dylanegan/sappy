@@ -1,12 +1,11 @@
-require File.dirname(__FILE__) + '/../helper'
+require File.dirname(__FILE__) + '/../spec_helper'
 
 module Sappy
   describe Account do
     describe "with incorrect credentials" do
       it "raises an error" do
-        lambda { Account.login("invalid@email.com", "password") }.
-          should.raise(Responses::Auth::LoginFailed).
-          message.should.match(/Wrong email or password/)
+        lambda { Account.login("invalid@email.com", "password") }.should
+          raise_error(Responses::Auth::LoginFailed, /Wrong email or password/)
       end
     end
 
@@ -14,7 +13,7 @@ module Sappy
       before do
         @account = Account.login(USERNAME, PASSWORD)
       end
-      
+
       before do
         @account.monitors.each do |m|
           m.destroy
@@ -23,7 +22,7 @@ module Sappy
 
       it "should obtain an auth key" do
         if ENV['LIVE_SPECS']
-          @account.authkey.should.be.kind_of(String)
+          @account.authkey.should be_a_kind_of(String)
         else
           @account.authkey.should == "b7kks5mh1l300v5segaksm8gh3"
         end
@@ -44,11 +43,11 @@ module Sappy
 
         it "can create a new monitor" do
           monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "engineyard.com", :period => "60"})
-          monitor.id.should.not.be.nil
-          if ENV['LIVE_SPECS']
-            @account.available_monitors.should == 2
+          monitor.id.should_not be_nil
+          unless mocked?
+            @account.available_monitors.should == MONITOR_LIMIT
           else
-            FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page('monitors_1'))
+            FakeWeb.register_uri(:get, "https://siteuptime.com/api/rest/?AuthKey=b7kks5mh1l300v5segaksm8gh3&method=siteuptime.monitors", :response => cached_page("monitors_#{MONITOR_LIMIT}"))
           end
           monitors = @account.monitors
           monitors.size.should == 1

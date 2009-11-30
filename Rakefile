@@ -19,10 +19,17 @@ rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
 
-desc 'Run bacon'
-task :bacon do
-  puts `#{File.dirname(__FILE__) + '/tmp/bin/bacon'} #{Dir["spec/**/*_bacon.rb"].join(" ")}`
+require 'spec/rake/spectask'
+desc "Run specs"
+Spec::Rake::SpecTask.new do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.spec_opts = %w(-fs --color)
+
+  t.rcov = ENV['RCOV'] == "true"
+  t.rcov_opts << '--exclude' << 'spec'
+  t.rcov_opts << '--text-summary'
+  t.rcov_opts << '--sort' << 'coverage' << '--sort-reverse'
 end
 
-desc 'Default: Runs spec'
-task :default => :bacon
+desc 'Default: Runs rspec'
+task :default => :spec

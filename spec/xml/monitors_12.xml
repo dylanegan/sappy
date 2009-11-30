@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Mon, 24 Aug 2009 05:29:31 GMT
+Server: Apache/2.2.3 (Red Hat)
+X-Powered-By: PHP/5.1.6
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Length: 465
+Connection: close
+Content-Type: text/xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<rsp stat="ok">
+  <monitors total="1">
+    <monitor id="84043" active="no" name="New Monitor" host="new-sf-monitor.com" service="http" port="0" period="60" location="sf" timeout="25" downsubject="" upsubject="" altemailalerts="" sendalertafter="1" dontsendupalert="no" sendurlalert="no" sendjabberalert="no" sendalldownalerts="no" enablepublicstatistics="no" addtostatuspage="no" current_status="n/a"/>
+  </monitors>
+</rsp>

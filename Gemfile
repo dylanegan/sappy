@@ -1,8 +1,13 @@
-gem "bacon", "1.1.0", :only => :test
-gem "fakeweb", "1.2.5", :only => :test
-gem "rack", "1.0.0"
-gem "rest-client", "1.0.3", :require_as => 'rest_client'
-gem "xml-simple", "1.0.12", :require_as => 'xmlsimple'
+gem "rack",        "1.0.0",    :require_as => [ ]
+gem "rest-client", "~>1.0.3",  :require_as => [ ]
+gem "xml-simple",  "~>1.0.12", :require_as => [ ]
+
+only :test do
+  gem "rake"
+  gem "rspec", :require_as => 'spec'
+  gem "fakeweb",   "1.2.5"
+  gem "ruby-debug"
+end
 
 bundle_path "tmp/vendor"
 bin_path "tmp/bin"
