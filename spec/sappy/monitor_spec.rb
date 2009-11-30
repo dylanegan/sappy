@@ -8,7 +8,7 @@ module Sappy
 
     before do
       @account.monitors.each { |m| m.destroy }
-      @monitor = @account.add_monitor({:name => "New Monitor", :service => "http", :location => "sf", :host => "engineyard.com", :period => "60"})
+      @monitor = @account.add_monitor(:name => "New Monitor", :service => "http", :location => "sf", :host => "engineyard.com", :period => "60")
     end
 
     describe "an active monitor" do

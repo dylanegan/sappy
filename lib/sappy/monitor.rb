@@ -121,7 +121,7 @@ module Sappy
     end
 
     def create
-      @id = @account.request("addmonitor", attributes).id
+      self.id = @account.request("addmonitor", attributes).id
     end
 
     def update

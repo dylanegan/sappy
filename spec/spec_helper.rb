@@ -4,6 +4,7 @@ require 'cgi'
 ENV['LIVE_SPECS'] ||= 'false'
 
 require File.dirname(__FILE__) + '/../lib/sappy'
+
 begin
   require File.dirname(__FILE__) + '/credentials.rb'
 rescue LoadError

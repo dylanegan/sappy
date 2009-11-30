@@ -7,7 +7,7 @@ begin
     gemspec.email = ["dylanegan@gmail.com", "tim@spork.in"]
     gemspec.homepage = "http://github.com/abcde/sappy"
     gemspec.authors = ["Dylan Egan", "Tim Carey-Smith"]
-    gemspec.files = %w(README.markdown Rakefile VERSION) + Dir.glob("{lib,bacon}/**/*")
+    gemspec.files = %w(README.markdown Rakefile VERSION) + Dir.glob("{lib,spec}/**/*")
     gemspec.rubyforge_project = 'abcde'
     gemspec.add_dependency "rack", "1.0.0"
     gemspec.add_dependency "rest-client", "1.0.3"
