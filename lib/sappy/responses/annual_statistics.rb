@@ -3,8 +3,8 @@ module Sappy
     class AnnualStatistics < Response
       attr_reader :statistics
 
-      def success(hash)
-        @statistics = hash["monthlystats"].first
+      def success
+        @statistics = first_xpath('//monthlystats')
       end
     end
   end

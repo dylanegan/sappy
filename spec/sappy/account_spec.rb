@@ -4,17 +4,15 @@ module Sappy
   describe Account do
     describe "with incorrect credentials" do
       it "raises an error" do
-        lambda { Account.login("invalid@email.com", "password") }.should
-          raise_error(Responses::Auth::LoginFailed, /Wrong email or password/)
+        lambda { Account.login("invalid@email.com", "password") }.
+          should raise_error(Responses::Auth::LoginFailed, 'Wrong email or password')
       end
     end
 
     describe "with correct credentials" do
       before do
         @account = Account.login(USERNAME, PASSWORD)
-      end
 
-      before do
         @account.monitors.each do |m|
           m.destroy
         end

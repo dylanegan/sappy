@@ -3,10 +3,11 @@ module Sappy
     class SummaryStatistics < Response
       attr_reader :up, :down, :inactive
 
-      def success(hash)
-        hash["summarystatistics"].first.each do |stat,value|
-          instance_variable_set("@#{stat}", value.to_i)
-        end
+      def success
+        node      = first_xpath('//summarystatistics')
+        @up       = node['up'].to_i
+        @down     = node['down'].to_i
+        @inactive = node['inactive'].to_i
       end
     end
   end

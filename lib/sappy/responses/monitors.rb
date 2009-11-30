@@ -3,8 +3,8 @@ module Sappy
     class Monitors < Response
       attr_reader :monitors
 
-      def success(hash)
-        @monitors = hash["monitors"].first["monitor"] || []
+      def success
+        @monitors = xml.xpath('//monitors/monitor')
       end
     end
   end

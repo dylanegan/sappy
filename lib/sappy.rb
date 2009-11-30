@@ -1,6 +1,5 @@
-require 'xmlsimple'
-
 require File.dirname(__FILE__) + '/core_ext'
+require 'nokogiri'
 
 $:.unshift File.dirname(__FILE__)
 

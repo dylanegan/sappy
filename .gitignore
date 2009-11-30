@@ -2,3 +2,4 @@ config.yml
 pkg
 spec/credentials.rb
 tmp
+coverage

@@ -9,16 +9,33 @@ module Sappy
       r
     end
 
-    def initialize(xml)
-      @xml = xml
+    attr_reader :data, :xml
+
+    def initialize(data)
+      @data = data.to_s
+      @xml  = Nokogiri::XML.parse(data)
+    end
+
+    def error_response?
+      resp = xml.xpath('//rsp')
+      resp && resp.first['stat'] == 'fail'
+    end
+
+    def error_response
+      resp = xml.xpath('//err')
+      resp && resp.first
+    end
+
+    def first_xpath(path)
+      node = xml.xpath(path)
+      node && node.first
     end
 
     def parse
-      hash = XmlSimple.xml_in(@xml.to_s, 'KeepRoot' => false)
-      if hash["stat"] == "fail"
-        error = hash["err"]
-        message = error.first["msg"]
-        case code = error.first["code"]
+      if error_response?
+        error = error_response
+        message = error["msg"]
+        case code = error["code"]
         when "AUTH_EXPIRED"
           raise SessionExpired, "The auth session expired, reconnect to continue using the API"
         else
@@ -26,16 +43,21 @@ module Sappy
           raise UnhandledError, "Unhandled error: #{code}, #{message}"
         end
       else
-        success(hash)
+        success
       end
     end
 
-    def success(hash)
+    def success
       raise NotImplementedError, "Overwrite #success in a Response subclass"
     end
 
     def failure(code, message)
-      raise NotImplementedError, "Overwrite #failure in a Response subclass"
+      case code
+      when "WRONG_DATA"
+        raise ArgumentError, "You didn't provide a correct monitor id: #{message}"
+      else
+        raise NotImplementedError, "Overwrite #failure in a Response subclass"
+      end
     end
   end
 end
