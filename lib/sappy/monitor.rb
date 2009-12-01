@@ -107,9 +107,17 @@ module Sappy
       @active = 0
     end
 
+    def disabled?
+      @active != 1
+    end
+
     def enable!
       @account.request('enablemonitor', "MonitorId" => id)
       @active = 1
+    end
+
+    def enabled?
+      @active == 1
     end
 
     def new_record?

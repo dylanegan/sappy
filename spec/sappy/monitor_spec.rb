@@ -18,7 +18,7 @@ module Sappy
 
       it "can be disabled" do
         @monitor.disable!
-        @monitor.should_not be_active
+        @monitor.should be_disabled
       end
     end
 
@@ -29,7 +29,7 @@ module Sappy
 
       it "can be enabled" do
         @monitor.enable!
-        @monitor.should be_active
+        @monitor.should be_enabled
       end
     end
 
