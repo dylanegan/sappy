@@ -4,3 +4,4 @@ spec/credentials.rb
 tmp
 coverage
 .DS_Store
+sappy.gemspec

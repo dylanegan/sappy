@@ -1,6 +1,8 @@
-gem "rack",        "1.0.0",    :require_as => [ ]
-gem "rest-client", "~>1.0.3",  :require_as => [ ]
-gem "nokogiri",                :require_as => [ ]
+only :release do
+  gem "rack",        "1.0.0"
+  gem "rest-client", "~>1.0.3"
+  gem "nokogiri"
+end
 
 only :test do
   gem "rake"
@@ -9,6 +11,8 @@ only :test do
   gem "ruby-debug"
   gem "ZenTest"
   gem 'rcov'
+  gem 'bundler'
+  gem 'jeweler'
 end
 
 bundle_path "tmp/vendor"

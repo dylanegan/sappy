@@ -1,5 +1,7 @@
+require 'bundler'
+require 'jeweler'
+
 begin
-  require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "sappy"
     gemspec.summary = "Wrapping that shit!"
@@ -7,16 +9,20 @@ begin
     gemspec.email = ["dylanegan@gmail.com", "tim@spork.in"]
     gemspec.homepage = "http://github.com/abcde/sappy"
     gemspec.authors = ["Dylan Egan", "Tim Carey-Smith"]
-    gemspec.files = %w(README.markdown Rakefile VERSION) + Dir.glob("{lib,spec}/**/*")
+    # reject people's local copies of credentials
+    project_files = Dir.glob("{lib,spec}/**/*").reject { |file| file =~ %r!spec/credentials.rb! }
+    gemspec.files = %w(README.markdown Rakefile VERSION) + project_files
     gemspec.rubyforge_project = 'abcde'
-    gemspec.add_dependency "rack", "1.0.0"
-    gemspec.add_dependency "rest-client", "1.0.3"
-    gemspec.add_dependency "xml-simple", "1.0.12"
+    manifest = Bundler::Environment.load(File.dirname(__FILE__) + '/Gemfile')
+    manifest.dependencies.each do |d|
+      next unless d.only && d.only.include?('release')
+      gemspec.add_dependency(d.name, d.version)
+    end
   end
 
   Jeweler::RubyforgeTasks.new
 rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+  puts "Jeweler not available. Install it with: sudo gem install jeweler"
 end
 
 require 'spec/rake/spectask'
