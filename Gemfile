@@ -2,7 +2,6 @@ source "http://gemcutter.org"
 
 group :runtime do
   gem "rack",        "1.0.0"
-  gem "rest-client", "~>1.0.3"
   gem "nokogiri"
 end
 

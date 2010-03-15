@@ -1,4 +1,6 @@
 require File.dirname(__FILE__) + '/core_ext'
+require 'rack/utils'
+require "net/http"
 require 'nokogiri'
 
 $:.unshift File.dirname(__FILE__)

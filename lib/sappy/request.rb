@@ -1,6 +1,3 @@
-require 'rest_client'
-require 'rack'
-
 module Sappy
   class Request
     def self.perform(account, action, parameters)
@@ -12,14 +9,13 @@ module Sappy
     end
 
     def perform
-      xml = RestClient.get(uri)
-      r = Responses.for(@action)
-      r.parse(xml)
+      response = http.get("#{uri.path}?#{query_string}")
+      Responses.for(@action).parse(response.body)
     end
 
     private
       def uri
-        @uri ||= "https://siteuptime.com/api/rest/?#{query_string}"
+        @uri ||= URI("https://siteuptime.com/api/rest/?#{query_string}")
       end
 
       def query_string
@@ -29,6 +25,13 @@ module Sappy
         @parameters["method"] = "siteuptime.#{@action}"
 
         Rack::Utils.build_query(@parameters)
+      end
+
+      def http
+        http             = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl     = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http
       end
   end
 end
