@@ -1,5 +1,5 @@
-Bundler.setup(:runtime, :test)
-Bundler.require(:runtime, :test)
+require "spec"
+require "fakeweb"
 require 'cgi'
 
 ENV['LIVE_SPECS'] ||= 'false'
