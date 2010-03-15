@@ -1,12 +1,14 @@
-only :release do
+source "http://gemcutter.org"
+
+group :release do
   gem "rack",        "1.0.0"
   gem "rest-client", "~>1.0.3"
   gem "nokogiri"
 end
 
-only :test do
+group :test do
   gem "rake"
-  gem "rspec", :require_as => 'spec'
+  gem "rspec", :require => 'spec'
   gem "fakeweb",   "1.2.5"
   gem "ruby-debug"
   gem "ZenTest"
@@ -14,7 +16,3 @@ only :test do
   gem 'bundler'
   gem 'jeweler'
 end
-
-bundle_path "tmp/vendor"
-bin_path "tmp/bin"
-disable_system_gems

@@ -1,4 +1,5 @@
-Bundler.require_env(:test)
+Bundler.setup(:release, :test)
+Bundler.require(:release, :test)
 require 'cgi'
 
 ENV['LIVE_SPECS'] ||= 'false'

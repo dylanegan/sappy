@@ -11,13 +11,14 @@ begin
     gemspec.authors = ["Dylan Egan", "Tim Carey-Smith"]
     # reject people's local copies of credentials
     project_files = Dir.glob("{lib,spec}/**/*").reject { |file| file =~ %r!spec/credentials.rb! }
+
     gemspec.files = %w(README.markdown Rakefile VERSION) + project_files
     gemspec.rubyforge_project = 'abcde'
-    manifest = Bundler::Environment.load(File.dirname(__FILE__) + '/Gemfile')
-    manifest.dependencies.each do |d|
-      next unless d.only && d.only.include?('release')
-      gemspec.add_dependency(d.name, d.version)
-    end
+
+    bundle = Bundler::Definition.from_gemfile("Gemfile")
+    bundle.dependencies.
+      select { |d| d.groups.include?(:runtime) }.
+      each   { |d| gemspec.add_dependency(d.name, d.version_requirements.to_s)  }
   end
 
   Jeweler::RubyforgeTasks.new
